@@ -1,0 +1,14 @@
+.loginPage {
+  background: linear-gradient(
+    rgba(206, 198, 198, 0.5),
+    rgba(158, 147, 147, 0.5)
+  );
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 120%;
+}
+
+.loginForm {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+}
