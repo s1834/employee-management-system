@@ -1,6 +1,6 @@
 import mysql from 'mysql';
-import {MYSQL_USERNAME} from '../.env';
-import {MYSQL_PASSWORD} from '../.env';
+import {MYSQL_USERNAME, MYSQL_PASSWORD} from '../.env';
+
 const con = mysql.createConnection({
   host: 'localhost',
   user: MYSQL_USERNAME,
