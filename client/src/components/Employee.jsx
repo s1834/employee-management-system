@@ -1,7 +1,35 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 const Employee = () => {
+  const [employee, setEmployee] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/auth/employee')
+      .then((result) => {
+        if (result.data.Status) {
+          setEmployee(result.data.Result);
+        } else {
+          alert(result.data.Error);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const handleDelete = (id) => {
+    axios
+      .delete('http://localhost:3000/auth/delete_employee/' + id)
+      .then((result) => {
+        if (result.data.Status) {
+          window.location.reload();
+        } else {
+          alert(result.data.Error);
+        }
+      });
+  };
+
   return (
     <div className="px-5 mt-3">
       <div className="d-flex justify-content-center">
@@ -10,7 +38,53 @@ const Employee = () => {
       <Link to="/dashboard/add_employee" className="btn btn-success">
         Add Employee
       </Link>
-      <div className="mt-3"></div>
+      <div className="mt-3">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Email</th>
+              <th>Mobile No.</th>
+              <th>Salary</th>
+              <th>Gender</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            {employee.map((e) => (
+              <tr>
+                <td>{e.f_name}</td>
+                <td>
+                  <img
+                    src={`http://localhost:3000/Images/` + e.f_image}
+                    className="employee_image"
+                  />
+                </td>
+                <td>{e.f_email}</td>
+                <td>{e.f_mobile}</td>
+                <td>{e.f_salary}</td>
+                <td>{e.f_gender}</td>
+                <td>{e.f_address}</td>
+                <td>
+                  <Link
+                    to={`/dashboard/edit_employee/` + e.f_id}
+                    className="btn btn-info btn-sm me-2"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    className="btn btn-warning btn-sm"
+                    onClick={() => handleDelete(e.f_id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
