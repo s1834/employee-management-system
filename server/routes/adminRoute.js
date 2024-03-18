@@ -1,6 +1,9 @@
 import express from 'express';
 import con from '../utils/db.js';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import multer from 'multer';
+import path from 'path';
 
 const router = express.Router();
 
@@ -34,6 +37,44 @@ router.post('/add_category', (req, res) => {
   con.query(sql, [req.body.category], (err, result) => {
     if (err) return res.json({Status: false, Error: 'Query Error'});
     return res.json({Status: true});
+  });
+});
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'Public/Images');
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + '_' + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+const upload = multer({
+  storage: storage,
+});
+
+router.post('/add_employee', upload.single('image'), (req, res) => {
+  const sql = `INSERT INTO t_employee (f_name, f_email, f_mobile, f_password, f_salary, f_gender, f_address, f_image, f_category) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  bcrypt.hash(req.body.password, 10, (err, hash) => {
+    if (err) return res.json({Status: false, Error: 'Query Error'});
+    const values = [
+      req.body.name,
+      req.body.email,
+      req.body.mobile,
+      hash,
+      Number(req.body.salary),
+      req.body.gender,
+      req.body.address,
+      req.file.filename,
+      req.body.category_id,
+    ];
+    con.query(sql, values, (err, result) => {
+      if (err) return res.json({Status: false, Error: err.sqlMessage});
+      return res.json({Status: true});
+    });
   });
 });
 
