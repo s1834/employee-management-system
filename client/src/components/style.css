@@ -22,3 +22,9 @@ ul li :hover {
   height: 40px;
   border-radius: 50%;
 }
+
+.emp_det_image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}

@@ -11,7 +11,7 @@ const EmployeeDetail = () => {
     axios
       .get('http://localhost:3000/employee/detail/' + id)
       .then((result) => {
-        setEmployee(result.data);
+        setEmployee(result.data.Result[0]);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -33,13 +33,13 @@ const EmployeeDetail = () => {
       </div>
       <div className="d-flex justify-content-center flex-column align-items-center mt-3">
         <img
-          src={`http://localhost:3000/images/` + employee.image}
+          src={`http://localhost:3000/images/` + employee.f_image}
           className="emp_det_image"
         />
         <div className="d-flex align-items-center flex-column mt-5">
-          <h3>Name: {employee.name}</h3>
-          <h3>Email: {employee.email}</h3>
-          <h3>Salary: ${employee.salary}</h3>
+          <h3>Name: {employee.f_name}</h3>
+          <h3>Email: {employee.f_email}</h3>
+          <h3>Salary: ${employee.f_salary}</h3>
         </div>
         <div>
           <button className="btn btn-primary me-2">Edit</button>

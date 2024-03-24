@@ -39,6 +39,10 @@ router.get('/detail/:id', (req, res) => {
   const sql = 'SELECT * FROM t_employee WHERE f_id = ?';
   con.query(sql, [id], (err, result) => {
     if (err) return res.json({Status: false});
+
+    if (result.length === 0) {
+      return res.json({Status: false, Error: 'Employee not found'});
+    }
     return res.json({Status: true, Result: result});
   });
 });
