@@ -23,7 +23,7 @@ function App() {
           <Route path="/adminlogin" element={<Login />}></Route>
           <Route path="/employee_login" element={<EmployeeLogin />}></Route>
           <Route
-            path="/employee_detail/:id"
+            path="/employee/detail/:id"
             element={<EmployeeDetail />}
           ></Route>
           <Route path="/dashboard" element={<Dashboard />}>

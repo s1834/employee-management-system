@@ -20,7 +20,6 @@ const EmployeeLogin = () => {
       .post('http://localhost:3000/employee/employee_login', values)
       .then((result) => {
         if (result.data.loginStatus) {
-          console.log(result.data.id);
           navigate('/employee/detail/' + result.data.id);
         } else {
           setError(result.data.Error);

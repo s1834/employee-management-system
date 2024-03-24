@@ -1,7 +1,6 @@
 import axios from 'axios';
-import {useParams} from 'next/navigation';
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 const EmployeeDetail = () => {
   const [employee, setEmployee] = useState([]);
@@ -10,7 +9,7 @@ const EmployeeDetail = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/employee_detail/' + id)
+      .get('http://localhost:3000/employee/detail/' + id)
       .then((result) => {
         setEmployee(result.data);
       })
