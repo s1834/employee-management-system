@@ -8,7 +8,7 @@ import Home from './components/Home';
 import Employee from './components/Employee';
 import Category from './components/Category';
 import Profile from './components/Profile';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useNavigate} from 'react-router-dom';
 import AddCategory from './components/AddCategory';
 import AddEmployee from './components/AddEmployee';
 import EditEmployee from './components/EditEmployee';
@@ -19,7 +19,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/start" element={<Start />}></Route>
+          <Route path="/" element={<Start />}></Route>
           <Route path="/adminlogin" element={<Login />}></Route>
           <Route path="/employee_login" element={<EmployeeLogin />}></Route>
           <Route

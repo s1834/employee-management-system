@@ -13,9 +13,13 @@ router.post('/adminlogin', (req, res) => {
     if (err) return res.json({loginStatus: false, Error: 'Query error'});
     if (result.length > 0) {
       const email = result[0].email;
-      const token = jwt.sign({role: 'admin', email: email}, 'jwt_secret_key', {
-        expiresIn: '1d',
-      });
+      const token = jwt.sign(
+        {role: 'admin', email: email, id: result[0].f_sno},
+        'jwt_secret_key',
+        {
+          expiresIn: '1d',
+        }
+      );
       res.cookie('token', token);
       return res.json({loginStatus: true});
     } else {

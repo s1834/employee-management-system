@@ -1,9 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './style.css';
 import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 const Start = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get('http://localhot:3000/verify')
+      .then((result) => {
+        if (result.data.Status) {
+          if (result.data.role === 'admin') {
+            navigate('/dashboard');
+          } else {
+            navigate('/employee/detail/' + result.data.id);
+          }
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 loginPage">
