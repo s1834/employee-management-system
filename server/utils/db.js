@@ -1,19 +1,26 @@
-import mysql from 'mysql';
-import {MYSQL_USERNAME, MYSQL_PASSWORD} from '../.env';
+import mysql from "mysql";
+import {
+  RDS_HOSTNAME,
+  RDS_PORT,
+  RDS_DB_NAME,
+  RDS_USERNAME,
+  RDS_PASSWORD,
+} from "../.env";
 
 const con = mysql.createConnection({
-  host: 'localhost',
-  user: MYSQL_USERNAME,
-  password: MYSQL_PASSWORD,
-  database: 'employee_management_system',
+  host: RDS_HOSTNAME,
+  user: RDS_USERNAME,
+  password: RDS_PASSWORD,
+  port: RDS_PORT,
+  database: RDS_DB_NAME,
 });
 
 con.connect(function (err) {
   if (err) {
-    console.log('connection error');
+    console.log("connection error");
     console.log(err);
   } else {
-    console.log('connected');
+    console.log("connected");
   }
 });
 
